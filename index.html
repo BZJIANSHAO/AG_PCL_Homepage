@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="index, nofollow">
+    <title>AG-PCL主页 | 极光星系专用的主页</title>
+    <meta name="description" content="AG-PCL主页，全称AuroraGalaxy PCL主页，是由玩家不贱剑少（OKIL）开发的PCL主页。">
+    <script>
+        (function () {
+            var theme;
+            try { theme = localStorage.getItem('pcl-theme'); } catch (e) { theme = null; }
+            if (!theme) {
+                theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="AG-PCL">
+    <meta property="og:title" content="AG-PCL主页 | 极光星系专用的主页">
+    <meta property="og:description" content="AG-PCL主页，全称AuroraGalaxy PCL主页，是由玩家不贱剑少（OKIL）开发的PCL主页。">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <noscript>
+        <style>
+            .reveal { opacity: 1 !important; transform: none !important; }
+            .section-title h2::after { transform: scaleX(1) !important; }
+        </style>
+    </noscript>
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --bg-soft: #f1f5f9;
+            --bg-card: #ffffff;
+            --bg-card-soft: #f8fafc;
+            --border: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --accent: #22d3ee;
+            --accent-2: #3b82f6;
+            --accent-soft: rgba(34, 211, 238, 0.1);
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+            --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+            --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12);
+            --grid-color: rgba(15, 23, 42, 0.06);
+        }
+
+        [data-theme="dark"] {
+            --bg: #0b1220;
+            --bg-soft: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --bg-card-soft: rgba(15, 23, 42, 0.5);
+            --border: rgba(148, 163, 184, 0.15);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent: #22d3ee;
+            --accent-2: #60a5fa;
+            --accent-soft: rgba(34, 211, 238, 0.12);
+            --success: #4ade80;
+            --warning: #fbbf24;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
+            --grid-color: rgba(148, 163, 184, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 32px 32px;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .bg-glow {
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 15% 20%, rgba(34, 211, 238, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 85% 75%, rgba(59, 130, 246, 0.08) 0%, transparent 45%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .site-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: color-mix(in srgb, var(--bg) 80%, transparent);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-mark {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .logo-mark::before {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            background: var(--bg);
+            border-radius: 4px;
+            opacity: 0.3;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text em {
+            font-style: normal;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.25s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .theme-toggle {
+            width: 38px;
+            height: 38px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s;
+        }
+
+        .theme-toggle:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            width: 38px;
+            height: 38px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 像素风按钮 */
+        .px-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .px-btn--primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            color: #0b1220;
+            box-shadow: 0 4px 14px rgba(34, 211, 238, 0.3);
+        }
+
+        .px-btn--primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(34, 211, 238, 0.4);
+        }
+
+        .px-btn--ghost {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .px-btn--ghost:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-soft);
+        }
+
+        /* ========== Hero 首屏 ========== */
+        .hero {
+            padding: 140px 0 100px;
+            position: relative;
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-title {
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-title span {
+            display: block;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 42px;
+            margin-top: 8px;
+        }
+
+        .hero-desc {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 32px;
+            max-width: 520px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        /* 版本状态卡 */
+        .server-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: var(--shadow-lg);
+            backdrop-filter: blur(12px);
+        }
+
+        .server-card-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .server-card-head h3 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .server-card-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-muted);
+        }
+
+        .status-dot.is-online {
+            background: var(--success);
+            box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .ip-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            background: var(--bg-card-soft);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .ip-value {
+            font-family: "Consolas", monospace;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .copy-ip, .copy-mini {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .copy-ip:hover, .copy-mini:hover {
+            background: var(--accent);
+            color: #0b1220;
+        }
+
+        .meta-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .meta-cell {
+            text-align: center;
+            padding: 12px 8px;
+            background: var(--bg-card-soft);
+            border-radius: 8px;
+        }
+
+        .meta-cell b {
+            display: block;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .meta-cell i {
+            font-style: normal;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .card-refresh-row {
+            text-align: center;
+        }
+
+        .refresh-status {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: inherit;
+            margin-bottom: 8px;
+        }
+
+        .refresh-status:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .refresh-note {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        .scroll-hint i {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(4px); }
+        }
+
+        /* ========== 通用区块 ========== */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.6s ease;
+        }
+
+        .section-title.reveal.is-in h2::after {
+            transform: scaleX(1);
+            float:center;
+        }
+
+        .section-title p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-top: 14px;
+        }
+
+        /* 像素卡片 */
+        .px-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 28px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .px-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        /* ========== 功能特性 ========== */
+        .service-card {
+            text-align: center;
+        }
+
+        .service-glyph {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 20px;
+            background: var(--accent-soft);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--accent);
+        }
+
+        .service-card h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* ========== 下载中心 ========== */
+        .server-grid .server-item {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .server-thumb {
+            height: 160px;
+            background: linear-gradient(135deg, var(--accent-soft), rgba(59, 130, 246, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: var(--accent);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .server-thumb.is-empty {
+            background: var(--bg-card-soft);
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .server-body {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .server-body h3 {
+            font-size: 17px;
+            margin-bottom: 4px;
+        }
+
+        .server-subtitle {
+            color: var(--accent);
+            font-size: 13px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .server-body .desc {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .tag {
+            padding: 3px 10px;
+            background: var(--bg-card-soft);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .feature-box {
+            margin-bottom: 16px;
+        }
+
+        .feature-toggle {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text-secondary);
+            padding: 8px 12px;
+            background: var(--bg-card-soft);
+            border-radius: 8px;
+            user-select: none;
+        }
+
+        .feature-toggle::-webkit-details-marker { display: none; }
+
+        .feature-count {
+            background: var(--accent-soft);
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .feature-toggle i {
+            margin-left: auto;
+            transition: transform 0.2s;
+            font-size: 11px;
+        }
+
+        details[open] .feature-toggle i {
+            transform: rotate(180deg);
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 12px 4px 4px;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--border);
+            font-size: 13px;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list b {
+            display: block;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .feature-list span {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .server-foot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .ip-text {
+            font-family: "Consolas", monospace;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* ========== 更新日志 ========== */
+        .notice-list {
+            max-width: 860px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .notice-card {
+            display: flex;
+            gap: 24px;
+            padding: 20px 24px;
+        }
+
+        .notice-side {
+            min-width: 70px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .notice-date {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .notice-type {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .notice--update .notice-type {
+            background: rgba(34, 211, 238, 0.15);
+            color: var(--accent);
+        }
+
+        .notice--maintain .notice-type {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+        }
+
+        .notice-main {
+            flex: 1;
+        }
+
+        .notice-fold summary {
+            list-style: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .notice-fold summary::-webkit-details-marker { display: none; }
+
+        .notice-heading h3 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .notice-preview {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .notice-fold i {
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-top: 4px;
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+
+        details[open] .notice-fold i {
+            transform: rotate(180deg);
+        }
+
+        .notice-text {
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px dashed var(--border);
+            color: var(--text-secondary);
+            font-size: 13px;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+
+        /* ========== 相关链接 ========== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .contact-card {
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .contact-card h3 {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .contact-card p {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        /* ========== 页脚 ========== */
+        .site-footer {
+            border-top: 1px solid var(--border);
+            padding: 36px 0 28px;
+            margin-top: 40px;
+            background: var(--bg-soft);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-inner p {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-legal {
+            margin-top: 20px;
+        }
+
+        .footer-legal summary {
+            list-style: none;
+            cursor: pointer;
+        }
+
+        .footer-legal summary::-webkit-details-marker { display: none; }
+
+        .legal-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-legal-title {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .legal-state-brief { display: inline; }
+        .legal-state-full { display: none; }
+        details[open] .legal-state-brief { display: none; }
+        details[open] .legal-state-full { display: inline; }
+
+        .legal-cta-text-open { display: inline; }
+        .legal-cta-text-close { display: none; }
+        details[open] .legal-cta-text-open { display: none; }
+        details[open] .legal-cta-text-close { display: inline; }
+
+        .legal-cta {
+            color: var(--text-muted);
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legal-brief p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 6px;
+        }
+
+        .legal-full {
+            padding: 20px 0;
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .legal-full p {
+            margin-bottom: 12px;
+        }
+
+        /* ========== 移动端底部栏 ========== */
+        .mobile-bar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 16px;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            backdrop-filter: blur(20px);
+            z-index: 99;
+            gap: 12px;
+        }
+
+        .mobile-bar-copy {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid var(--border);
+            background: var(--bg-card-soft);
+            color: var(--text-primary);
+            border-radius: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-family: inherit;
+        }
+
+        .mobile-bar-join {
+            flex: 1;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #0b1220;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        /* ========== Toast 提示 ========== */
+        .toast {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
+            padding: 10px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+            font-size: 14px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s;
+            z-index: 200;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ========== 滚动动画 ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.is-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== 响应式 ========== */
+        @media (max-width: 960px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .grid-3, .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero { padding: 120px 0 80px; }
+            .hero-title { font-size: 36px; }
+            .hero-title span { font-size: 28px; }
+            
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: flex; }
+
+            .grid-3, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title h2 { font-size: 26px; }
+
+            .notice-card {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .notice-side {
+                flex-direction: row;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .mobile-bar { display: flex; }
+
+            body { padding-bottom: 70px; }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 背景层 -->
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-glow" aria-hidden="true"></div>
+
+<!-- 导航栏 -->
+<header class="site-header" id="siteHeader">
+    <div class="container">
+        <div class="navbar">
+            <div class="logo-group">
+                <span class="logo-mark" aria-hidden="true"></span>
+                <a href="#home" class="logo-text">AG-PCL<em>主页</em></a>
+            </div>
+
+            <nav class="nav-links" id="navLinks">
+                <a href="#home">首页</a>
+                <a href="#features">特性</a>
+                <a href="#download">下载</a>
+                <a href="#changelog">更新日志</a>
+                <a href="#links">相关链接</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" type="button" title="切换深浅主题">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="展开菜单">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main id="home">
+
+    <!-- 首屏 Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-inner">
+                <div class="hero-copy reveal">
+                    <h1 class="hero-title">
+                        AuroraGalaxy
+                        <span>AG-PCL 官方主页</span>
+                    </h1>
+                    <p class="hero-desc">
+                        AG-PCL主页，全称AuroraGalaxy PCL主页，是由玩家不贱剑少（OKIL）开发的PCL主页。
+                    </p>
+                    <div class="hero-actions">
+                        <a class="px-btn px-btn--primary" href="#download">
+                            <i class="fas fa-download"></i> 立即使用
+                        </a>
+                        <a class="px-btn px-btn--ghost" href="#changelog">
+                            <i class="fas fa-clock-rotate-left"></i> 查看更新
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 版本状态卡 -->
+                <div class="server-card reveal" data-no-tilt>
+                    <div class="server-card-head">
+                        <h3>当前最新版本</h3>
+                        <div class="server-card-status">
+                            <span class="status-dot is-online" data-role="dot"></span>
+                            <span data-role="status">正式版 · 稳定可用</span>
+                        </div>
+                    </div>
+                    <div class="ip-row">
+                        <div class="ip-value">Future1.5.1</div>
+                        <button class="copy-ip" type="button" data-copy="Future1.5.1">
+                            <i class="far fa-copy"></i> 复制
+                        </button>
+                    </div>
+                    <div class="meta-row">
+                        <div class="meta-cell"><b data-role="players">任何</b><i>支持版本</i></div>
+                        <div class="meta-cell"><b data-role="max">Github / Gitee</b><i>支持线路</i></div>
+                        <div class="meta-cell"><b data-role="version">11-07</b><i>最新更新日期</i></div>
+                    </div>
+                    <div class="card-refresh-row">
+                        <p class="refresh-note">XAML代码，简单，轻量，快速。<br>支持全部PCL与可实现主页的改版</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a class="scroll-hint" href="#features" aria-label="向下浏览">
+            <span>向下滚动查看更多</span>
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </section>
+
+    <!-- 功能特性 -->
+    <section class="services" id="features">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>AG-PCL</h2>
+                <p>专为AuroraGalaxy服务器打造，简单好用，界面美观。</p>
+            </div>
+            <div class="grid-3">
+                <div class="px-card service-card reveal">
+                    <span class="service-glyph"><i class="fas fa-bolt"></i></span>
+                    <h3>极速加载</h3>
+                    <p>根据需要选择Github或Gitee链接，让加载快速又简单。</p>
+                </div>
+                <div class="px-card service-card reveal">
+                    <span class="service-glyph"><i class="fas fa-puzzle-piece"></i></span>
+                    <h3>快速按钮</h3>
+                    <p>快捷按钮，只需一键即可打开官网等等网站！</p>
+                </div>
+                <div class="px-card service-card reveal">
+                    <span class="service-glyph"><i class="fas fa-box"></i></span>
+                    <h3>快速公告</h3>
+                    <p>无需看群，只需要看着主页，就可以知道发生了什么。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="servers" id="download">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>版本中心</h2>
+                <p>版本介绍</p>
+            </div>
+            <div class="grid-3 server-grid">
+                <div class="px-card server-item reveal">
+                    <div class="server-body">
+                        <h3>Future版本</h3>
+                        <p class="server-subtitle">AG-PCL主页向未来迈出的一步</p>
+                        <p class="desc">大幅度更改主页UI，美观度大幅度提升</p>
+                        <div class="tag-row">
+                            <span class="tag">持续维护中</span>
+                            <span class="tag">轻量</span>
+                            <span class="tag">简约</span>
+                        </div>
+                        <details class="feature-box">
+                            <summary class="feature-toggle">
+                                <span class="feature-count">2</span>
+                                <span>版本信息</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </summary>
+                            <ul class="feature-list">
+                                <li>
+                                    <b>PCL要求</b>
+                                    <span>最好为最新版，尽量使用未禁止下载功能的PCL</span>
+                                </li>
+                                <li>
+                                    <b>更新方式</b>
+                                    <span>发布公告后刷新即可</span>
+                                </li>
+                            </ul>
+                        </details>
+                        <div class="server-foot">
+                            <span class="server-card-status">
+                                <span class="status-dot is-online"></span>
+                                <span class="ip-text">Future1.5.1 正式版</span>
+                            </span>
+                            <a href="use.html" class="copy-mini" style="text-decoration:none;">立即使用</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="notices" id="changelog">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>版本更新说明</h2>
+                <p>记录每一次版本迭代的功能更新与问题修复</p>
+            </div>
+            <div class="notice-list">
+                <article class="px-card notice-card reveal notice--update">
+                    <div class="notice-side">
+                        <span class="notice-date">26-11-06</span>
+                        <span class="notice-type">更新</span>
+                    </div>
+                    <div class="notice-main">
+                        <details class="notice-fold">
+                            <summary>
+                                <div class="notice-heading">
+                                    <h3>Future1.5.1 正式版</h3>
+                                    <p class="notice-preview">公告同步</p>
+                                </div>
+                                <i class="fas fa-chevron-down"></i>
+                            </summary>
+                            <div class="notice-text">
+优化改进：
+· 同步服务器公告。</div>
+                        </details>
+                    </div>
+                </article>
+                <article class="px-card notice-card reveal notice--update">
+                    <div class="notice-side">
+                        <span class="notice-date">26-10-24</span>
+                        <span class="notice-type">更新</span>
+                    </div>
+                    <div class="notice-main">
+                        <details class="notice-fold">
+                            <summary>
+                                <div class="notice-heading">
+                                    <h3>Future1.5 正式版</h3>
+                                    <p class="notice-preview">UI优化、调整</p>
+                                </div>
+                                <i class="fas fa-chevron-down"></i>
+                            </summary>
+                            <div class="notice-text">
+优化改进：
+· 小幅度改动UI界面，调整UI美观性。
+· 新增Github仓库，并适配快捷按钮等。
+
+Bug修复
+· 修复大量交互问题、UI问题。</div>
+                        </details>
+                    </div>
+                </article>
+
+                <article class="px-card notice-card reveal notice--update">
+                    <div class="notice-side">
+                        <span class="notice-date">26-10-11</span>
+                        <span class="notice-type">更新</span>
+                    </div>
+                    <div class="notice-main">
+                        <details class="notice-fold">
+                            <summary>
+                                <div class="notice-heading">
+                                    <h3>Future1.4（删减版）</h3>
+                                    <p class="notice-preview">移除“影藏图片功能”</p>
+                                </div>
+                                <i class="fas fa-chevron-down"></i>
+                            </summary>
+                        </details>
+                    </div>
+                </article>
+
+                <article class="px-card notice-card reveal notice--maintain">
+                    <div class="notice-side">
+                        <span class="notice-date">26-08-15</span>
+                        <span class="notice-type">维护</span>
+                    </div>
+                    <div class="notice-main">
+                        <details class="notice-fold">
+                            <summary>
+                                <div class="notice-heading">
+                                    <h3>通知</h3>
+                                    <p class="notice-preview">由于未知原因，目前暂时无法使用“隐藏图片”功能，使用后将会变成空白页面！</p>
+                                </div>
+                                <i class="fas fa-chevron-down"></i>
+                            </summary>
+                        </details>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="links">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>相关链接</h2>
+                <p>提交反馈与issues</p>
+            </div>
+            <div class="contact-grid">
+                <a class="px-card contact-card reveal" href="https://github.com/BZJIANSHAO/AuroraGalaxy.PCL.Homepage">
+                    <span class="service-glyph"><i class="fas fa-bug"></i></span>
+                    <h3>问题反馈-Github</h3>
+                    <p>提交 Bug 与功能建议</p>
+                </a>
+                <a class="px-card contact-card reveal" href="https://gitee.com/BZJIANSHAO/aurora-galaxie-homepage.gitee.io">
+                    <span class="service-glyph"><i class="fas fa-bug"></i></span>
+                    <h3>问题反馈-Gitee</h3>
+                    <p>提交 Bug 与功能建议</p>
+                </a>
+                <a class="px-card contact-card reveal" href="https://www.agmc.top">
+                    <span class="service-glyph"><i class="fas fa-server"></i></span>
+                    <h3>官方网站</h3>
+                    <p>去往服务器官网</p>
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer" id="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <p>&copy; <span>2026</span> 不贱剑少、AuroraGalaxy. 保留所有权利.</p>
+            <ul class="footer-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#download">下载</a></li>
+                <li><a href="#changelog">更新日志</a></li>
+                <li><a href="#links">相关链接</a></li>
+            </ul>
+        </div>
+        <div class="footer-inner" style="margin-top:10px">
+            <p>网站版本 Beta v1.0.0</p>
+        </div>
+
+        <details class="footer-legal">
+            <summary>
+                <div class="legal-head">
+                    <p class="footer-legal-title">额外声明<span class="legal-state legal-state-brief">（简略）</span><span class="legal-state legal-state-full">（详细）</span></p>
+                    <span class="legal-cta">
+                        <span class="legal-cta-in">
+                            <span class="legal-cta-text legal-cta-text-open">展开</span>
+                            <span class="legal-cta-text legal-cta-text-close">折叠</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </span>
+                </div>
+                <div class="legal-brief">
+                    <div class="legal-brief-in">
+                        <p> - 本主页为第三方开发，与 Mojang Studios、Microsoft Corporation 或 龙腾猫越及PCL2 无官方隶属关系。</p>
+                        <p> - 我们按"现状"提供，不保证完全无错，使用风险由用户自行承担。</p>
+                        <p> - 用户使用应遵守官方仓库下的许可证与使用协议。</p>
+                    </div>
+                </div>
+            </summary>
+            <div class="legal-full">
+                <p><strong>1. 性质声明</strong><br>
+                    本主页为第三方独立开发，<strong>不属于 Mojang Studios、Microsoft Corporation 或 龙腾猫越及PCL2 的官方产品</strong>，未经其批准、认可或授权，与其不存在隶属、代理、合作或赞助关系。"Minecraft"及相关名称、标识的权利归 Mojang / Microsoft 所有。</p>
+                <p><strong>2. 使用规范</strong><br>
+                    用户使用应遵守官方仓库下的许可证与使用协议。</p>
+                <p><strong>3. 免责声明</strong><br>
+                    我们按"现状"提供，不保证不间断运行或完全无错误。开发团队不对因使用本主页造成的任何损失承担责任。</p>
+            </div>
+        </details>
+    </div>
+</footer>
+
+<div class="mobile-bar">
+    <button class="mobile-bar-copy" type="button" data-copy="v2.1.5">
+        <i class="fas fa-copy"></i> <span>复制版本号</span>
+    </button>
+    <a class="mobile-bar-join" href="#download">
+        <i class="fas fa-download"></i> 立即下载
+    </a>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    
+    function updateThemeIcon() {
+        const theme = document.documentElement.getAttribute('data-theme');
+        themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    
+    updateThemeIcon();
+    
+    themeToggle.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        try { localStorage.setItem('pcl-theme', next); } catch(e) {}
+        updateThemeIcon();
+    });
+
+    const toast = document.getElementById('toast');
+    let toastTimer = null;
+
+    function showToast(text) {
+        toast.textContent = text;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+            toast.classList.remove('show');
+        }, 2000);
+    }
+
+    document.querySelectorAll('[data-copy]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const text = btn.getAttribute('data-copy');
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('已复制：' + text);
+            }).catch(() => {
+                showToast('复制失败，请手动复制');
+            });
+        });
+    });
+
+
+    const revealElements = document.querySelectorAll('.reveal');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-in');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    revealElements.forEach(el => observer.observe(el));
+
+    // ========== 移动端菜单 ==========
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+        // 简单切换显示，可自行扩展完整侧滑
+        if (navLinks.style.display === 'flex') {
+            navLinks.style.display = '';
+        } else {
+            navLinks.style.display = 'flex';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '100%';
+            navLinks.style.left = '0';
+            navLinks.style.right = '0';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.gap = '0';
+            navLinks.style.background = 'var(--bg-card)';
+            navLinks.style.borderBottom = '1px solid var(--border)';
+            navLinks.style.padding = '12px 24px';
+            navLinks.querySelectorAll('a').forEach(a => {
+                a.style.padding = '12px 0';
+                a.style.borderBottom = '1px solid var(--border)';
+            });
+            navLinks.querySelector('a:last-child').style.borderBottom = 'none';
+        }
+    });
+
+    // 点击导航链接后关闭移动端菜单
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 640) {
+                navLinks.style.display = '';
+            }
+        });
+    });
+</script>
+</body>
+</html>
+<!-- （注：内容由AI生成） -->
